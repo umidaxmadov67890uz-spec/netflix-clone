@@ -7,7 +7,7 @@ function MovieRow(props) {
   const {movieData, listTitle, link, type, id} = props
   const {data, loader} = useGetData({url: movieData})
   if(loader) return
-  console.log(data)
+  // console.log(data)
   const finalData = data?.filter(e => e?.id !== id)
   return (
     <>

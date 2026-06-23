@@ -6,30 +6,32 @@ import { useEffect, useState } from "react";
 function useGetData({url}) {
   const [loader, setLoader] = useState(true);
   const [data, setData] = useState(null)
-  async function getData(url) {
-    // console.log(url)
-    if(!url) return
-    try {
-      await axios.get(url).then(res => {
-        if(res.data.results) {
-          setData(res?.data?.results)
-        } else if(res.data) {
-          setData(res?.data)
-        }
-        // console.log(res)
-        setLoader(false);
-        return "test boldi"
-      })
-    } catch (error) {
-      console.log(error);
-      setLoader(false)
-    }
-    return data
-  }
   useEffect(() => {
-    getData(url);
-  }, []);
-  return { data, getData, loader };
+    if(!url) return
+    async function getData() {
+      setLoader(true)
+      try {
+        await axios.get(url).then(res => {
+          if(res.data.results) {
+            setData(res?.data?.results)
+          } else if(res.data) {
+            setData(res?.data)
+          }
+          
+          setLoader(false);
+        })
+      } catch (error) {
+        console.log(error);
+        setLoader(false)
+      }
+      return data
+    }
+
+    getData();
+
+  }, [ url ]);
+
+  return { data, loader };
 }
 
 export default useGetData;

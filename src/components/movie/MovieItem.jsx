@@ -10,7 +10,7 @@ function MovieItem(props) {
   const navigate = useNavigate()
   // console.log(type)
   function handleNavigate(){
-    if(type  === "movie") {
+    if(type === "movie") {
       navigate(`/movie/detail/${data?.id}`)
       // e.preventDefault()
     }else if(type === "tv") {
