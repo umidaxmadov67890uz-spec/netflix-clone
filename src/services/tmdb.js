@@ -15,9 +15,11 @@ export const MOVIES = {
   details: (id) => `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`,
   videos: (id) =>`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=en-US`,
   similar: (id) =>`${BASE_URL}/movie/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`,
+  actors: (id) =>  `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`,
   byGenre: (genreId) =>`${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&language=en-US&page=1`,
 };
 
+// ─── TV SHOWS ─────────────────────────────────────────────
 // ─── TV SHOWS ─────────────────────────────────────────────
 export const TV = {
   popular: `${BASE_URL}/tv/popular?api_key=${API_KEY}&language=en-US&page=1`,
@@ -34,7 +36,16 @@ export const TV = {
     `${BASE_URL}/tv/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`,
   byGenre: (genreId) =>
     `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=${genreId}&language=en-US&page=1`,
+  actors: (id) =>
+    `${BASE_URL}/tv/${id}/credits?api_key=${API_KEY}`,
+  season: (id, seasonNumber) =>
+    `${BASE_URL}/tv/${id}/season/${seasonNumber}?api_key=${API_KEY}&language=en-US`,
+  episode: (id, seasonNumber, episodeNumber) =>
+    `${BASE_URL}/tv/${id}/season/${seasonNumber}/episode/${episodeNumber}?api_key=${API_KEY}&language=en-US`,
 };
+
+
+// `https://api.themoviedb.org/3/${movieId?.replace("-", "/")}/credits?api_key=${API_KEY}`
 
 // ─── GENRES ───────────────────────────────────────────────
 export const GENRES = {

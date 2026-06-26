@@ -4,22 +4,15 @@ import MovieRow from './MovieRow';
 import { IoBookmarkOutline, IoTimeOutline } from "react-icons/io5";
 import { MdDateRange } from "react-icons/md";
 import { FaRegStar } from "react-icons/fa";
-import useGetData from "../../hooks/useGetData";
-import YouTube from "react-youtube";
-// import { useState } from "react";
-// import { FiInfo } from "react-icons/fi";
+import ActersList from "../acters/ActersList";
+import YoutubeTrailer from "../trailer/YoutubeTrailer";
 
 function Movie(props) {
   const {movieData} = props
-  const {byGenre, videos} = MOVIES
-  // const [youtubeKey, setYoutubeKey] = useState(null)
-  const { loader, data} = useGetData({url: videos(movieData?.id)})
+  const {byGenre, actors, videos} = MOVIES
 
-  if(loader) return <p className="text-center pt-56">Yuklanmoqda...</p>
-
-  const youtubeKey = data?.find(e => e?.site === "YouTube")
-  console.log(youtubeKey);
-  
+  const actersData = actors(movieData?.id)
+  const youtubeTrailerData = videos(movieData?.id)
 
   function runtime(){
     const hour = Math.floor(movieData?.runtime / 60)
@@ -27,12 +20,6 @@ function Movie(props) {
     return `${hour ? hour + " hour" : ""} ${minute ? minute + " minute" : ""}`
   }
 
-  // console.log(data)
-
-  // const siteIsYoutube = data?.filter(e => e?.site === "youtube")
-  // setYoutubeKey(data?.find(e => e?.site === "youtube"))
-
-  
   return (
     <div className="relative">
       <div className="h-screen w-full bg-no-repeat bg-cover bg-center" style={{backgroundImage: `url(${HERO_IMG_URL}${movieData?.backdrop_path})`}}>
@@ -63,7 +50,10 @@ function Movie(props) {
             <p className="text-white text-5xl">{movieData?.title}</p>
             <div className="flex flex-wrap items-center justify-start my-4 gap-x-1">
               {movieData?.genres?.map(genre => (
-                <button className="text-slate-200 hover:text-slate-50 text-sm bg-slate-900 border border-slate-700 hover:border-slate-500 px-4 py-1 rounded-l-full rounded-r-full cursor-pointer transition-all duration-200" key={genre?.id}>{genre?.name}</button>
+                <button 
+                  className="text-slate-200 hover:text-slate-50 text-sm bg-slate-900 border border-slate-700 hover:border-slate-500 px-4 py-1 rounded-l-full rounded-r-full cursor-pointer transition-all duration-200" 
+                  key={genre?.id}>{genre?.name}
+                </button>
               ))}
             </div>
             <div className="flex items-center gap-x-2">
@@ -97,14 +87,13 @@ function Movie(props) {
           </div>
         </div>
 
-        {
-          youtubeKey && (
-            <div className="my-5">
-              <p className="text-white font-bold text-2xl">trailer</p>
-              <YouTube videoId={youtubeKey?.key} opts={{width: "780", height: "500"}} />
-            </div>
-          )
-        }
+        <div>
+          <YoutubeTrailer youtubeTrailerData={youtubeTrailerData} />
+        </div>
+
+        <div>
+          <ActersList actersData={actersData} title={"actors who appeared in the film"} />
+        </div>
       
       </div>
       <div>

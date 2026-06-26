@@ -17,7 +17,7 @@ function MovieRow(props) {
             <h2 className="text-white text-2xl font-bold capitalize">{listTitle}</h2>
             <Link to={link} ><GrNext className="text-white text-2xl" /></Link>
           </div>
-          <div className="flex items-start gap-x-6 flex-nowrap h-64 pt-4 overflow-x-scroll scrollbar-thumb-transparent">
+          <div className="flex items-start gap-x-6 flex-nowrap h-64 pt-4 overflow-x-scroll scrollbar-none">
             {finalData?.map(movie => (
                 <MovieItem data={movie} key={movie?.id} type={type} />
               ))}
