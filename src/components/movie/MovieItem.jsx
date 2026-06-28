@@ -1,5 +1,4 @@
 import { useState } from "react"
-// import { CiPlay1 } from "react-icons/ci"
 import { FiPlus } from "react-icons/fi"
 import { IoPlayOutline } from "react-icons/io5"
 import { useNavigate } from 'react-router';
@@ -8,18 +7,13 @@ function MovieItem(props) {
   const {data, type} = props
   const [isActive, setIsActive] = useState(false)
   const navigate = useNavigate()
-  // console.log(type)
   function handleNavigate(){
     if(type === "movie") {
       navigate(`/movie/detail/${data?.id}`)
-      // e.preventDefault()
     }else if(type === "tv") {
       navigate(`/tv/detail/${data?.id}`)
-      // e.preventDefault()
     }
   }
-  
-  // console.log(data)
 
   return (
     <>
@@ -28,7 +22,7 @@ function MovieItem(props) {
           onClick={handleNavigate}
           onMouseEnter={() => setIsActive(true)}
           onMouseLeave={() => setIsActive(false)}
-          className="bg-black h-42 hover:h-48 min-w-64 hover:shadow-sm shadow-black overflow-hidden hover:scale-110 transition-all duration-200 cursor-pointer">
+          className="bg-black h-42 hover:h-48 min-w-full hover:shadow-sm shadow-black overflow-hidden hover:scale-110 transition-all duration-200 cursor-pointer">
           <div className="bg-no-repeat bg-center bg-cover w-full h-42 z-10" style={{backgroundImage: `url(https://image.tmdb.org/t/p/w780${data?.backdrop_path})`}}>
             { isActive && (
                 <div className="w-full h-full flex items-center justify-center gap-x-5 pt-5 bg-[black]/15">

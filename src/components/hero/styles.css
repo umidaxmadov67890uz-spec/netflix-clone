@@ -28,6 +28,7 @@
   justify-content: center;
   font-weight: bold;
   color: var(--swiper-theme-color);
+  /* transform: ; */
 }
 
 .autoplay-progress svg {

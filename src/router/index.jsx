@@ -7,6 +7,8 @@ import LoginPage from "../pages/login/LoginPage";
 import FavoritesPage from "../pages/favorites/FavoritesPage";
 import MoviePage from "../pages/movie/MoviePage";
 import TvPage from "../pages/tv/TvPage";
+import MoviesPage from "../pages/movie/MoviesPage";
+import TvsPage from "../pages/tv/TvsPage";
  
 
 export const Routers = createBrowserRouter([
@@ -24,6 +26,14 @@ export const Routers = createBrowserRouter([
       {
         path: "/favorites",
         element: <FavoritesPage />
+      },
+      {
+        path: "/movies",
+        element: <MoviesPage />
+      },
+      {
+        path: "/serials",
+        element: <TvsPage />
       },
       {
         path: "/movie/detail/:id",

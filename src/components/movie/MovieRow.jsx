@@ -19,8 +19,10 @@ function MovieRow(props) {
           </div>
           <div className="flex items-start gap-x-6 flex-nowrap h-64 pt-4 overflow-x-scroll scrollbar-none">
             {finalData?.map(movie => (
-                <MovieItem data={movie} key={movie?.id} type={type} />
-              ))}
+              <div key={movie?.id} className="h-50 min-w-64  mx-auto flex justify-center">
+                <MovieItem data={movie}  type={type} />
+              </div>
+            ))}
           </div>
         </div>
       }

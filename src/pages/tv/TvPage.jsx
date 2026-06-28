@@ -5,18 +5,16 @@ import MovieHero from "../../components/hero/MovieHero"
 import Description from "../../components/description/Description"
 import AddGenres from "../../components/add-genres/AddGenres"
 import Seasons from "../../components/seasons/Seasons"
-// import { useState } from "react"
+import YoutubeTrailer from "../../components/trailer/YoutubeTrailer"
 
 function TvPage() {
-  const { details} = TV
+  const { details , videos} = TV
   const { id } = useParams()
   const {loader, data} = useGetData({url: details(id)})
-  // const [seasonNumberData, setSeasonNumberData] = useState()
 
   if(loader) return <p className="text-center pt-56">Yuklanmoqda...</p>
+  const youtubeTrailerData = videos(data?.id)
 
-  // setSeasonNumberData(season(data?.id, data?.last_episode_to_air?.season_number))
-  // console.log(seasonNumberData)
   console.log(data)
   
   return (
@@ -26,9 +24,13 @@ function TvPage() {
         <div>
           <Description img={data?.poster_path} title={data?.name} genres={data?.genres} date={data?.last_air_date} overview={data?.overview} />
         </div>
-        <div className="w-full bg-slate-900 rounded-2xl border border-slate-800 p-4 mt-5">
+        <div className="w-full bg-slate-900 rounded-2xl border border-slate-800 px-4 pb-2 my-5">
+          <div className="flex items-center justify-center">
+            <YoutubeTrailer youtubeTrailerData={youtubeTrailerData} />
+          </div>
           <Seasons seasons={data?.seasons} seasonNumber={data?.last_episode_to_air?.season_number} id={data?.id} />
         </div>
+
       </div>
       <div>
         <AddGenres genres={data?.genres} id={data?.id} />

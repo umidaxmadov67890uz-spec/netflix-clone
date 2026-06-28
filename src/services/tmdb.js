@@ -1,5 +1,5 @@
-const API_KEY = "31a2443faf807b3a1b32b34ae159d609";
-const BASE_URL = "https://api.themoviedb.org/3";
+export const API_KEY = "31a2443faf807b3a1b32b34ae159d609";
+export const BASE_URL = "https://api.themoviedb.org/3";
 export const IMG_URL = "https://image.tmdb.org/t/p/w500";
 export const HERO_IMG_URL = "https://image.tmdb.org/t/p/w780"
 export const IMG_URL_ORIGINAL = "https://image.tmdb.org/t/p/original";
@@ -19,7 +19,6 @@ export const MOVIES = {
   byGenre: (genreId) =>`${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&language=en-US&page=1`,
 };
 
-// ─── TV SHOWS ─────────────────────────────────────────────
 // ─── TV SHOWS ─────────────────────────────────────────────
 export const TV = {
   popular: `${BASE_URL}/tv/popular?api_key=${API_KEY}&language=en-US&page=1`,
@@ -45,7 +44,6 @@ export const TV = {
 };
 
 
-// `https://api.themoviedb.org/3/${movieId?.replace("-", "/")}/credits?api_key=${API_KEY}`
 
 // ─── GENRES ───────────────────────────────────────────────
 export const GENRES = {

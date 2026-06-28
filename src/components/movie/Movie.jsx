@@ -87,7 +87,8 @@ function Movie(props) {
           </div>
         </div>
 
-        <div>
+        <div className="my-5">
+          <p className="text-white font-bold text-2xl">trailer</p>
           <YoutubeTrailer youtubeTrailerData={youtubeTrailerData} />
         </div>
 
