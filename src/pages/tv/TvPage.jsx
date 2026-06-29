@@ -15,14 +15,14 @@ function TvPage() {
   if(loader) return <p className="text-center pt-56">Yuklanmoqda...</p>
   const youtubeTrailerData = videos(data?.id)
 
-  console.log(data)
+  // console.log(data)
   
   return (
     <div>
       <MovieHero bgImg={data?.backdrop_path} title={data?.original_name} />
       <div className="container mx-auto xl:px-15">
         <div>
-          <Description img={data?.poster_path} title={data?.name} genres={data?.genres} date={data?.last_air_date} overview={data?.overview} />
+          <Description img={data?.poster_path} title={data?.name} genres={data?.genres} date={data?.last_air_date} overview={data?.overview} id={data?.id} type={"tv"} />
         </div>
         <div className="w-full bg-slate-900 rounded-2xl border border-slate-800 px-4 pb-2 my-5">
           <div className="flex items-center justify-center">

@@ -4,7 +4,7 @@ import Season from "./Season";
 function Seasons(props) {
   const { seasons, seasonNumber, id } = props;
   const [activeEpisodeNumber, setActiveEpisodeNumber] = useState(1)
-  console.log(seasons);
+  // console.log(seasons);
 
   return (
     <div className="flex flex-col gap-y-2 overflow-x-scroll scrollbar-none transition-all duration-200">

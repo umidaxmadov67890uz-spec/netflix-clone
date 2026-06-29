@@ -26,7 +26,7 @@ function TvsPage() {
   }, [data])
 
   const uniqueMovies = tvsData.filter(
-    (movie, index, self) => index === self.findIndex((m) => m.id === movie.id)
+    (movie, index, arr) => index === arr.findIndex((m) => m.id === movie.id)
   );
 
   function handleMore (){

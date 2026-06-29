@@ -7,7 +7,7 @@ function Episodes(props) {
   
   if (loader) return;
 
-  console.log(data);
+  // console.log(data);
   return (
     <div className="flex flex-wrap gap-2 py-2 mt-2 border-t border-slate-700">
       {data?.episodes?.map((episode) => (

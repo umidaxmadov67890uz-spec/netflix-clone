@@ -9,7 +9,7 @@ function MoviePage() {
   const {loader, data} = useGetData({url: details(id)})
 
   if(loader) return <p className="text-center pt-56">Yuklanmoqda...</p>
-  console.log(data)
+  // console.log(data)
   
   return (
    <Movie movieData={data} />

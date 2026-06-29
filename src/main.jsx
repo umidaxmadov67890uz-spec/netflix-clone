@@ -5,13 +5,16 @@ import { Routers } from "./router/index";
 import "./index.css";
 import MoviesDataProvider from "./context/MoviesDataProvider";
 import TvDataProvider from "./context/TvDataProvider";
+import UserFavoritesProvider from "./context/UserFavoritesProvider";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <MoviesDataProvider>
-      <TvDataProvider>
-        <RouterProvider router={Routers} />
-      </TvDataProvider>
-    </MoviesDataProvider>
-  </StrictMode>
+    <UserFavoritesProvider>
+      <MoviesDataProvider>
+        <TvDataProvider>
+          <RouterProvider router={Routers} />
+        </TvDataProvider>
+      </MoviesDataProvider>
+    </UserFavoritesProvider>
+  </StrictMode>,
 );

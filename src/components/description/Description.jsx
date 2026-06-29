@@ -2,9 +2,25 @@ import { MdDateRange } from "react-icons/md";
 import { IMG_URL } from "../../services/tmdb";
 import { IoMdPlay } from "react-icons/io";
 import { IoBookmarkOutline } from "react-icons/io5";
+import { useContext } from "react";
+import { UserFavoritesContext } from "../../context/UserFavoritesContext";
+import { FaBookmark } from "react-icons/fa6";
 
 function Description(props) {
-  const {img, title, genres, date, overview} = props
+  const {img, title, genres, date, overview, id, type} = props
+  const { userFavoritesData, setUserFavoritesData } = useContext(UserFavoritesContext)
+
+  const isFavorite = userFavoritesData?.some((e) => e?.id === id);
+
+  function addFavorites(e) {
+    e.stopPropagation();
+    setUserFavoritesData((prev) =>
+      prev?.some((favorite) => favorite?.id === id)
+        ? prev?.filter((favorite) => favorite?.id !== id)
+        : [...prev, { id: id, type: type }],
+    );
+  }
+
   return (
     <div className="flex items-start justify-start gap-x-5">
       <div className="min-w-52 w-52 rounded-2xl -mt-10">
@@ -42,8 +58,8 @@ function Description(props) {
             <IoMdPlay />
             watch
           </button>
-          <button className="bg-[gray]/50 border border-slate-700 py-1 px-4 rounded-sm flex items-center gap-x-1 text-xl text-white capitalize cursor-pointer hover:scale-105 transition-all duration-300">
-            <IoBookmarkOutline />
+          <button onClick={(e) => addFavorites(e)} className="bg-[gray]/50 border border-slate-700 py-1 px-4 rounded-sm flex items-center gap-x-1 text-xl text-white capitalize cursor-pointer hover:scale-105 transition-all duration-300">
+            {isFavorite ? <FaBookmark /> : <IoBookmarkOutline />}
             favorites
           </button>
         </div>

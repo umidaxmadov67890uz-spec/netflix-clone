@@ -1,23 +1,27 @@
-import { useContext, useState } from "react";
-import { FiPlus } from "react-icons/fi";
+import {  FiPlus } from "react-icons/fi";
+import useGetData from "../../hooks/useGetData";
+import { FAVORITE } from "../../services/tmdb";
 import { IoPlayOutline } from "react-icons/io5";
 import { useNavigate } from "react-router";
+import { useContext, useState } from "react";
 import { UserFavoritesContext } from "../../context/UserFavoritesContext";
 import { LuMinus } from "react-icons/lu";
 
-function MovieItem(props) {
-  const { data, type } = props;
-  const [isActive, setIsActive] = useState(false);
-  const { userFavoritesData, setUserFavoritesData } = useContext(UserFavoritesContext);
-  const navigate = useNavigate();
+function Favorite(props) {
+  const { id, type } = props;
+  const { data, loader } = useGetData({ url: FAVORITE(type, id) });
+  const { userFavoritesData, setUserFavoritesData } = useContext(UserFavoritesContext)
+  const [isActive, setIsActive] = useState(false)
+  const navigate = useNavigate()
+  if (loader) return null;
 
-  const isFavorite = userFavoritesData?.some((e) => e?.id === data?.id);
+  const isFavorite = userFavoritesData?.some((e) => e?.id === id);
 
-  function handleNavigate() {
-    if (type === "movie") {
-      navigate(`/movie/detail/${data?.id}`);
-    } else if (type === "tv") {
-      navigate(`/tv/detail/${data?.id}`);
+  function handleNavigate(){
+    if(type === "movie") {
+      navigate(`/movie/detail/${data?.id}`)
+    }else if(type === "tv") {
+      navigate(`/tv/detail/${data?.id}`)
     }
   }
 
@@ -29,7 +33,6 @@ function MovieItem(props) {
         : [...prev, { id: data?.id, type: type }],
     );
   }
-
   return (
     <>
       {data?.backdrop_path && (
@@ -71,4 +74,4 @@ function MovieItem(props) {
   );
 }
 
-export default MovieItem;
+export default Favorite;
