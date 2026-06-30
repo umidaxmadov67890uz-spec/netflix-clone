@@ -6,6 +6,7 @@ import Filter from "../../components/filter/Filter"
 import MovieGrid from "../../components/movie/MovieGrid"
 import { FILTER_COUNTRY, FILTER_TV_GENRES, FILTER_TV_YEAR } from "../../components/filter/filterData"
 import { FaChevronRight } from "react-icons/fa"
+import { Link } from "react-router"
 
 function TvsPage() {
   const [genres, setGenres] = useState("")
@@ -20,9 +21,7 @@ function TvsPage() {
 
   useEffect(() => {
     if(data) setTvsData(prev => [...prev, ...data])
-    if(data) {
-      window.scrollTo(0, scrollPos.current);
-    }
+    if(data) window.scrollTo(0, scrollPos.current)
   }, [data])
 
   const uniqueMovies = tvsData.filter(
@@ -40,8 +39,12 @@ function TvsPage() {
 
   return (
     <div className="pt-10" ref={listRef}>
-      <div className="container mx-auto xl:px-15 my-5">
-        <Filter genres={genres} setGenres={setGenres} genresData={FILTER_TV_GENRES} year={year} setYear={setYear} yearData={FILTER_TV_YEAR} country={country} setCountry={setCountry} countryData={FILTER_COUNTRY} type={"tv"} />
+      <div className="container mx-auto px-2 xl:px-15 my-5">
+        <h1 className="text-white text-5xl font-bold">TV Series</h1>
+        <p className="text-slate-100 my-2"><Link to={"/"} ><span className="capitalize">home page</span></Link> / <span className="text-slate-400">TV Series</span></p>
+        <div>
+          <Filter genres={genres} setGenres={setGenres} genresData={FILTER_TV_GENRES} year={year} setYear={setYear} yearData={FILTER_TV_YEAR} country={country} setCountry={setCountry} countryData={FILTER_COUNTRY} type={"tv"} />
+        </div>
       </div>
       <div>
         <MovieGrid data={uniqueMovies} type={"tv"} />

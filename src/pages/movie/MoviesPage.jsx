@@ -6,6 +6,7 @@ import { MoviesDataContext } from "../../context/MoviesDataContext"
 import Filter from "../../components/filter/Filter"
 import { FILTER_COUNTRY, FILTER_MOVIE_GENRES, FILTER_MOVIE_YEAR } from "../../components/filter/filterData"
 import { FaChevronRight } from "react-icons/fa"
+import { Link } from "react-router"
 
 function MoviesPage() {
   const [genres, setGenres] = useState("")
@@ -41,7 +42,11 @@ function MoviesPage() {
   return (
     <div className="pt-10" ref={listRef}>
       <div className="container mx-auto xl:px-15 my-5">
-        <Filter genres={genres} setGenres={setGenres} genresData={FILTER_MOVIE_GENRES} year={year} setYear={setYear} yearData={FILTER_MOVIE_YEAR} country={country} setCountry={setCountry} countryData={FILTER_COUNTRY} type={"movie"} />
+        <h1 className="text-white text-5xl font-bold">Movies</h1>
+        <p className="text-slate-100 my-2"><Link to={"/"} ><span className="capitalize">home page</span></Link> / <span className="text-slate-400">movies</span> </p>
+        <div>
+          <Filter genres={genres} setGenres={setGenres} genresData={FILTER_MOVIE_GENRES} year={year} setYear={setYear} yearData={FILTER_MOVIE_YEAR} country={country} setCountry={setCountry} countryData={FILTER_COUNTRY} type={"movie"} />
+        </div>
       </div>
       <div>
         <MovieGrid data={uniqueMovies} type={"movie"} />

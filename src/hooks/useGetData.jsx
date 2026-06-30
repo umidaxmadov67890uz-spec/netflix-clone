@@ -9,6 +9,7 @@ function useGetData({ url }) {
 
   async function getData(url) {
     if (!url) return;
+    // console.log(url)
     setLoader(true);
     try {
       await axios.get(url).then((res) => {

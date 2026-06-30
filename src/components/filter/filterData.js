@@ -8,7 +8,7 @@ const BASE_COUNTRY = "&with_origin_country="
 
 
 export const FILTER_MOVIE_GENRES = [
-    {id: "", label: "all"},
+    {id: "", label: "all genres"},
     {id: `${BASE_GENRES}28`, label: "action"},
     {id: `${BASE_GENRES}12`, label: "adventure"},
     {id: `${BASE_GENRES}35`, label: "comedy"},
@@ -54,7 +54,7 @@ export const FILTER_MOVIE_YEAR = [
 
 
 export const FILTER_TV_GENRES = [
-    {id: "", label: "all"},
+    {id: "", label: "all genres"},
     {id: `${BASE_TV_GENRES}10759`, label: "action & adventure"},
     {id: `${BASE_TV_GENRES}35`, label: "comedy"},
     {id: `${BASE_TV_GENRES}80`, label: "crime"},

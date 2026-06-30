@@ -1,18 +1,18 @@
-import { TV } from "../../services/tmdb";
+import { GENRES } from "../../services/tmdb";
 import MovieRow from "../movie/MovieRow";
 
 function AddGenres(props) {
-  const {genres, id} = props
-  const {byGenre} = TV
+  const {genres, id, type} = props
   return (
     <div>
       {genres?.map((genre) => (
         <MovieRow
-          movieData={byGenre(genre?.id)}
+          movieData={GENRES(type, genre?.id)}
           listTitle={genre?.name}
-          type={"tv"}
+          type={type}
           key={genre?.id}
           id={id}
+          link={`/genre/${type}/${genre?.id}/${genre?.name?.replaceAll(" ", "-")}`}
         />
       ))}
     </div>

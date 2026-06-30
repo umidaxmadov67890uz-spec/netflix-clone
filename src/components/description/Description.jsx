@@ -1,16 +1,22 @@
 import { MdDateRange } from "react-icons/md";
 import { IMG_URL } from "../../services/tmdb";
 import { IoMdPlay } from "react-icons/io";
-import { IoBookmarkOutline } from "react-icons/io5";
+import { IoBookmarkOutline, IoTimeOutline } from "react-icons/io5";
 import { useContext } from "react";
 import { UserFavoritesContext } from "../../context/UserFavoritesContext";
 import { FaBookmark } from "react-icons/fa6";
 
 function Description(props) {
-  const {img, title, genres, date, overview, id, type} = props
+  const {img, title, genres, date, overview, id, type, time} = props
   const { userFavoritesData, setUserFavoritesData } = useContext(UserFavoritesContext)
 
   const isFavorite = userFavoritesData?.some((e) => e?.id === id);
+
+  function runtime() {
+    const hour = Math.floor(time / 60);
+    const minute = time - 60 * hour;
+    return `${hour ? hour + " hour" : ""} ${minute ? minute + " minute" : ""}`;
+  }
 
   function addFavorites(e) {
     e.stopPropagation();
@@ -44,10 +50,12 @@ function Description(props) {
           ))}
         </div>
         <div className="flex items-center gap-x-2">
-          {/* <p className="text-slate-400 text-lg flex items-center gap-x-0.5">
-            <IoTimeOutline />
-            {runtime()}
-          </p> */}
+          {time && (
+            <p className="text-slate-400 text-lg flex items-center gap-x-0.5">
+              <IoTimeOutline />
+              {runtime()}
+            </p>
+          )}
           <p className="text-slate-400 text-lg flex items-center gap-x-0.5">
             <MdDateRange />
             {date}

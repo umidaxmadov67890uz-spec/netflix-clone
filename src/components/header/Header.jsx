@@ -6,7 +6,7 @@ function Header() {
 
   return (
     <header className="w-full h-12 bg-[black]/70 fixed z-50">
-      <div className="container mx-auto xl:px-15 h-full flex items-center justify-between">
+      <div className="container mx-auto px-2 xl:px-15 h-full flex items-center justify-between">
         <div className="h-full flex items-center gap-x-5">
           <div>
             <Link to={"/"} ><img src={loge} alt="" /></Link>

@@ -47,10 +47,13 @@ export const TV = {
 };
 
 // ─── GENRES ───────────────────────────────────────────────
-export const GENRES = {
-  movies: `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`,
-  tv: `${BASE_URL}/genre/tv/list?api_key=${API_KEY}&language=en-US`,
-};
+
+export const GENRES = (type, id) => `${BASE_URL}/discover/${type}?api_key=${API_KEY}&with_genres=${id}&language=en-US&page=`
+
+// export const GENRES = {
+  // movies: `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`,
+  // tv: `${BASE_URL}/genre/tv/list?api_key=${API_KEY}&language=en-US`,
+// };
 
 export const MOVIE_GENRES = {
   action: `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=28&language=en-US&page=1`,

@@ -18,7 +18,7 @@ function TvPage() {
   // console.log(data)
   
   return (
-    <div>
+    <>
       <MovieHero bgImg={data?.backdrop_path} title={data?.original_name} />
       <div className="container mx-auto xl:px-15">
         <div>
@@ -33,9 +33,9 @@ function TvPage() {
 
       </div>
       <div>
-        <AddGenres genres={data?.genres} id={data?.id} />
+        <AddGenres genres={data?.genres} id={data?.id} type={"tv"} />
       </div>
-    </div>
+    </>
   )
 }
 

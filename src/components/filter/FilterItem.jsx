@@ -13,25 +13,26 @@ function FilterItem(props) {
 
   function handleFilter(i) {
     setOpen(false);
-    if(type === "movie") setMoviesData([]);
+    if(i === active) return
+    if(type === "movie" && i !== active) setMoviesData([]);
     if(type === "tv") setTvsData([])
-    setFunction(data[i]?.id);
+    setFunction(i);
   }
 
     useEffect(() => {
       const handler = (e) => {
         if (!ref.current?.contains(e.target)) setOpen(false);
       }
-      document.addEventListener("click", handler);
-      return () => document.removeEventListener("click", handler);
+      document?.addEventListener("click", handler);
+      return () => document?.removeEventListener("click", handler);
     }, [])
   return (
     <div className="relative" ref={ref}>
       <div
         onClick={() => setOpen((prev) => !prev)}
-        className="px-4 rounded-r-full rounded-l-full border border-slate-700 bg-transparent cursor-pointer"
+        className="px-4 py-1 w-full sm:w-auto rounded-xl sm:rounded-r-full sm:rounded-l-full border border-slate-700 bg-transparent cursor-pointer"
       >
-        <p className="text-slate-200 text-2xl flex items-center gap-x-2 text-nowrap transition-all duration-300">
+        <p className="text-slate-200 text-2xl flex items-center justify-between sm:justify-start gap-x-2 text-nowrap transition-all duration-300">
           {activeData?.label}
           <FaChevronRight
             className={`${open ? "-rotate-90" : "rotate-90"} text-xl transition-all duration-300`}
@@ -39,11 +40,11 @@ function FilterItem(props) {
         </p>
       </div>
       {open && (
-        <div className="absolute top-10 left-0 p-1 px-2 max-h-96 bg-slate-900 rounded-xl flex flex-col z-20 overflow-hidden overflow-y-scroll scrollbar-none">
+        <div className="absolute top-10 left-0 right-0 sm:right-auto mx-auto p-1 px-2 w-9/10 sm:min-w-max max-h-96 bg-slate-900 rounded-xl flex flex-col z-20 overflow-hidden overflow-y-scroll scrollbar-thumb-slate-700">
           {data?.map((item, index) => (
             <div
               key={index}
-              onClick={() => handleFilter(index)}
+              onClick={() => handleFilter(item?.id)}
               className="py-1 px-2 rounded-r-full rounded-l-full hover:bg-slate-800 text-slate-200 hover:text-slate-100 cursor-pointer"
             >
               <p className="text-xl text-nowrap">{item?.label}</p>
