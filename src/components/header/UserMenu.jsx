@@ -25,7 +25,7 @@ function UserMenu() {
       <div>
         <button 
           onClick={() => setOpen(prev => !prev)}
-          className="text-slate-200 hover:text-slate-50 transition-all duration-200 cursor-pointer">
+          className="text-slate-200 hover:text-slate-50 hover:scale-105 transition-all duration-200 cursor-pointer">
           <FaRegCircleUser className="h-6 w-6" />
         </button>
       </div>

@@ -10,6 +10,7 @@ import TvPage from "../pages/tv/TvPage";
 import MoviesPage from "../pages/movie/MoviesPage";
 import TvsPage from "../pages/tv/TvsPage";
 import GenrePage from "../pages/genre/GenrePage";
+import SearchPage from "../pages/search/SearchPage";
  
 
 export const Routers = createBrowserRouter([
@@ -47,6 +48,9 @@ export const Routers = createBrowserRouter([
       {
         path: "/tv/detail/:id",
         element: <TvPage />
+      },{
+        path: "/search/:query",
+        element: <SearchPage />
       }
     ]
   }, {

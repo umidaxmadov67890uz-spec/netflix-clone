@@ -24,7 +24,13 @@ function Filter(props) {
         <FilterItem data={yearData} active={year} setFunction={setYear} type={type} />
         <FilterItem data={countryData} active={country} setFunction={setCountry} type={type} />
       </div>
-      <button onClick={handleReset} className="text-red-600 hover:text-red-500 text-xl capitalize flex items-center gap-x-1 text-nowrap transition-all duration-200 cursor-pointer"><RiDeleteBin6Line className="text-2xl" /><span className="sm:hidden md:flex">reset filters</span></button>
+      <button 
+        onClick={handleReset} 
+        className="text-red-600 hover:text-red-500 text-xl capitalize flex items-center gap-x-1 text-nowrap transition-all duration-200 cursor-pointer"
+      >
+        <RiDeleteBin6Line className="text-2xl" />
+        <span className="sm:hidden md:flex">reset filters</span>
+      </button>
     </div>
   )
 }

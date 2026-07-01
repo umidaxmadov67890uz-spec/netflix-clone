@@ -4,6 +4,7 @@ import { IoPlayOutline } from "react-icons/io5";
 import { useNavigate } from "react-router";
 import { UserFavoritesContext } from "../../context/UserFavoritesContext";
 import { LuMinus } from "react-icons/lu";
+import { IMG_URL } from "../../services/tmdb";
 
 function MovieItem(props) {
   const { data, type } = props;
@@ -42,7 +43,7 @@ function MovieItem(props) {
           <div
             className="bg-no-repeat bg-center bg-cover w-full h-42 z-10"
             style={{
-              backgroundImage: `url(https://image.tmdb.org/t/p/w780${data?.backdrop_path})`,
+              backgroundImage: `url(${IMG_URL}${data?.backdrop_path})`,
             }}
           >
             {isActive && (

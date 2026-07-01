@@ -46,14 +46,11 @@ export const TV = {
     `${BASE_URL}/tv/${id}/season/${seasonNumber}/episode/${episodeNumber}?api_key=${API_KEY}&language=en-US`,
 };
 
+// ─── SEARCH ───────────────────────────────────────────────
+export const SEARCH = (type, query) => `${BASE_URL}/search/${type}?api_key=${API_KEY}&query=${query}&language=en-US&page=1`
+
 // ─── GENRES ───────────────────────────────────────────────
-
 export const GENRES = (type, id) => `${BASE_URL}/discover/${type}?api_key=${API_KEY}&with_genres=${id}&language=en-US&page=`
-
-// export const GENRES = {
-  // movies: `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`,
-  // tv: `${BASE_URL}/genre/tv/list?api_key=${API_KEY}&language=en-US`,
-// };
 
 export const MOVIE_GENRES = {
   action: `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=28&language=en-US&page=1`,

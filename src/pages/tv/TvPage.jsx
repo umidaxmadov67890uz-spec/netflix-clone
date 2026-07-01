@@ -24,11 +24,11 @@ function TvPage() {
         <div>
           <Description img={data?.poster_path} title={data?.name} genres={data?.genres} date={data?.last_air_date} overview={data?.overview} id={data?.id} type={"tv"} />
         </div>
-        <div className="w-full bg-slate-900 rounded-2xl border border-slate-800 px-4 pb-2 my-5">
+        <div className="w-full px-4 pb-2 my-5">
+          <Seasons seasons={data?.seasons} seasonNumber={data?.last_episode_to_air?.season_number} id={data?.id} />
           <div className="flex items-center justify-center">
             <YoutubeTrailer youtubeTrailerData={youtubeTrailerData} />
           </div>
-          <Seasons seasons={data?.seasons} seasonNumber={data?.last_episode_to_air?.season_number} id={data?.id} />
         </div>
 
       </div>

@@ -5,10 +5,12 @@ import { IoBookmarkOutline, IoTimeOutline } from "react-icons/io5";
 import { useContext } from "react";
 import { UserFavoritesContext } from "../../context/UserFavoritesContext";
 import { FaBookmark } from "react-icons/fa6";
+import { useNavigate } from "react-router";
 
 function Description(props) {
   const {img, title, genres, date, overview, id, type, time} = props
   const { userFavoritesData, setUserFavoritesData } = useContext(UserFavoritesContext)
+  const navigate = useNavigate()
 
   const isFavorite = userFavoritesData?.some((e) => e?.id === id);
 
@@ -27,6 +29,10 @@ function Description(props) {
     );
   }
 
+  function  openGenrePage (genreId, genreName) {
+    navigate(`/genre/${type}/${genreId}/${genreName?.replaceAll(" ", "-")}`)
+  }
+
   return (
     <div className="flex items-start justify-start gap-x-5">
       <div className="min-w-52 w-52 rounded-2xl -mt-10">
@@ -42,6 +48,7 @@ function Description(props) {
         <div className="flex flex-wrap items-center justify-start my-4 gap-x-1">
           {genres?.map((genre) => (
             <button
+              onClick={() => openGenrePage(genre?.id, genre?.name)}
               className="text-slate-200 hover:text-slate-50 text-sm bg-slate-900 border border-slate-700 hover:border-slate-500 px-4 py-1 rounded-l-full rounded-r-full cursor-pointer transition-all duration-200"
               key={genre?.id}
             >
