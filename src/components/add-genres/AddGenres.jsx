@@ -3,11 +3,12 @@ import MovieRow from "../movie/MovieRow";
 
 function AddGenres(props) {
   const {genres, id, type} = props
+  // console.log(genres)
   return (
     <div>
       {genres?.map((genre) => (
         <MovieRow
-          movieData={GENRES(type, genre?.id)}
+          movieData={`${GENRES(type, genre?.id)}1`}
           listTitle={genre?.name}
           type={type}
           key={genre?.id}

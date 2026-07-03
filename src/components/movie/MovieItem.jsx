@@ -16,9 +16,18 @@ function MovieItem(props) {
 
   function handleNavigate() {
     if (type === "movie") {
-      navigate(`/movie/detail/${data?.id}`);
+      navigate(`/movie/detail/${data?.id}/false`);
     } else if (type === "tv") {
-      navigate(`/tv/detail/${data?.id}`);
+      navigate(`/tv/detail/${data?.id}/false`);
+    }
+  }
+
+  function handleAutoPlay (e){
+    e.stopPropagation();
+    if (type === "movie") {
+      navigate(`/movie/detail/${data?.id}/true`);
+    } else if (type === "tv") {
+      navigate(`/tv/detail/${data?.id}/true`);
     }
   }
 
@@ -30,6 +39,7 @@ function MovieItem(props) {
         : [...prev, { id: data?.id, type: type }],
     );
   }
+
 
   return (
     <>
@@ -54,7 +64,7 @@ function MovieItem(props) {
                 >
                   {isFavorite ? <LuMinus /> : <FiPlus />}
                 </button>
-                <button className="text-3xl text-slate-200 hover:text-slate-50 bg-[black]/50 hover:bg-[black]/60 flex items-center justify-center text-center w-12 h-12 pl-0.5 rounded-full border border-slate-200 cursor-pointer transition-all duration-200">
+                <button onClick={(e) => handleAutoPlay(e)} className="text-3xl text-slate-200 hover:text-slate-50 bg-[black]/50 hover:bg-[black]/60 flex items-center justify-center text-center w-12 h-12 pl-0.5 rounded-full border border-slate-200 cursor-pointer transition-all duration-200">
                   <IoPlayOutline className="w-8 h-8" />
                 </button>
               </div>

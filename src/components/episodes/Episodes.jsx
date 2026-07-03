@@ -4,7 +4,7 @@ import { IMG_URL } from "../../services/tmdb";
 import { FaPlay } from "react-icons/fa";
 
 function Episodes(props) {
-  const { episodesData, activeEpisodeNumber, setActiveEpisodeNumber } = props;
+  const { episodesData, activeEpisodeNumber, setActiveEpisodeNumber, play} = props;
   const [open, setOpen] = useState(null);
   const { loader, data } = useGetData({ url: episodesData });
 
@@ -16,7 +16,12 @@ function Episodes(props) {
     return `${hour ? hour + " hour" : ""} ${minute ? minute + " minute" : ""}`;
   }
 
-  console.log(data);
+  function handlePlay(e){
+    e.stopPropagation();
+    play(true)
+  } 
+
+  // console.log(data);
   return (
     <div className="flex flex-nowrap items-end gap-x-5 py-2 mt-2 h-62 overflow-x-scroll scrollbar-none">
       {data?.episodes?.map((episode) => (
@@ -34,7 +39,7 @@ function Episodes(props) {
             {open === episode?.id && (
               <div className="w-full h-full bg-black/50 flex items-center justify-center relative transition-all duration-500">
                 <p className="text-white font-bold absolute top-1 left-1">{runtime(episode?.runtime)}</p>
-                <button className="text-3xl text-slate-200 hover:text-slate-50  flex items-center justify-center text-center w-12 h-12 cursor-pointer transition-all duration-200">
+                <button onClick={(e) => handlePlay(e)} className="text-3xl text-slate-200 hover:text-slate-50  flex items-center justify-center text-center w-12 h-12 cursor-pointer transition-all duration-200">
                   <FaPlay className="w-8 h-8" />
                 </button>
               </div>

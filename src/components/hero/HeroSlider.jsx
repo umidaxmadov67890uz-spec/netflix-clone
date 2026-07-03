@@ -27,6 +27,7 @@ export default function HeroSlider(props) {
         style={{"--swiper-theme-color": "#fff", "--swiper-navigation-size": "24", "--swiper-pagination-bullet-inactive-color": "#fff"}}
         spaceBetween={30}
         centeredSlides={true}
+        loop
         autoplay={{
           delay: 10000,
           disableOnInteraction: false,
@@ -39,14 +40,14 @@ export default function HeroSlider(props) {
         onAutoplayTimeLeft={onAutoplayTimeLeft}
         className="mySwiper"
       >
-        <SwiperSlide><HeroSlide data={popular} /></SwiperSlide>
-        <SwiperSlide><HeroSlide data={popular} /></SwiperSlide>
-        <SwiperSlide><HeroSlide data={popular} /></SwiperSlide>
-        <SwiperSlide><HeroSlide data={popular} /></SwiperSlide>
-        <SwiperSlide><HeroSlide data={popular} /></SwiperSlide>
-        <SwiperSlide><HeroSlide data={popular} /></SwiperSlide>
-        <SwiperSlide><HeroSlide data={popular} /></SwiperSlide>
-        <SwiperSlide><HeroSlide data={popular} /></SwiperSlide>
+        <SwiperSlide><HeroSlide data={popular[0]} /></SwiperSlide>
+        <SwiperSlide><HeroSlide data={popular[1]} /></SwiperSlide>
+        <SwiperSlide><HeroSlide data={popular[2]} /></SwiperSlide>
+        <SwiperSlide><HeroSlide data={popular[3]} /></SwiperSlide>
+        <SwiperSlide><HeroSlide data={popular[4]} /></SwiperSlide>
+        <SwiperSlide><HeroSlide data={popular[5]} /></SwiperSlide>
+        <SwiperSlide><HeroSlide data={popular[6]} /></SwiperSlide>
+        <SwiperSlide><HeroSlide data={popular[7]} /></SwiperSlide>
         <div className="autoplay-progress" slot="container-end">
           <svg width={7} height={12} viewBox="0 0 48 48" ref={progressCircle}>
             <circle cx="24" cy="24" r="20">1hkd jyyre</circle>

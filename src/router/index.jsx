@@ -42,7 +42,7 @@ export const Routers = createBrowserRouter([
         element: <GenrePage />
       },
       {
-        path: "/movie/detail/:id",
+        path: "/movie/detail/:id/:play",
         element: <MoviePage/>
       },
       {

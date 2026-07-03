@@ -4,7 +4,7 @@ import { TV } from "../../services/tmdb";
 import Episodes from "../episodes/Episodes";
 
 function Seasons(props) {
-  const { seasons, seasonNumber, id } = props;
+  const { seasons, seasonNumber, id, play} = props;
   const {season} = TV
   const [activeEpisodeNumber, setActiveEpisodeNumber] = useState(1);
   const [activeSeasonNumber, setActiveSeasonsNumber] = useState(seasonNumber);
@@ -27,7 +27,7 @@ function Seasons(props) {
         ))}
       </div>
       <div>
-        <Episodes episodesData={episodesData} activeEpisodeNumber={activeEpisodeNumber} setActiveEpisodeNumber={setActiveEpisodeNumber} />
+        <Episodes play={play} episodesData={episodesData} activeEpisodeNumber={activeEpisodeNumber} setActiveEpisodeNumber={setActiveEpisodeNumber} />
       </div>
     </div>
   );

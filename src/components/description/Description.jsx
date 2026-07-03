@@ -8,7 +8,7 @@ import { FaBookmark } from "react-icons/fa6";
 import { useNavigate } from "react-router";
 
 function Description(props) {
-  const {img, title, genres, date, overview, id, type, time} = props
+  const {img, title, genres, date, overview, id, type, time, play} = props
   const { userFavoritesData, setUserFavoritesData } = useContext(UserFavoritesContext)
   const navigate = useNavigate()
 
@@ -69,7 +69,7 @@ function Description(props) {
           </p>
         </div>
         <div className="flex items-center gap-x-2 my-7">
-          <button className="bg-white py-1 px-4 rounded-sm flex items-center gap-x-1 font-bold text-xl cursor-pointer hover:scale-105 transition-all duration-300">
+          <button onClick={() => play(true)} className="bg-white py-1 px-4 rounded-sm flex items-center gap-x-1 font-bold text-xl cursor-pointer hover:scale-105 transition-all duration-300">
             <IoMdPlay />
             watch
           </button>
