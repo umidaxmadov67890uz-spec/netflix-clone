@@ -25,7 +25,7 @@ function MoviePage() {
 
   if (loader) return null
   const youtubeTrailerData = videos(data?.id);
-  console.log(open)
+  // console.log(open)
   // <Movie movieData={data} />
 
   return (

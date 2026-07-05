@@ -1,60 +1,130 @@
-import { useState } from "react"
-import Input from "../input/Input"
-import { useAuth } from "../../hooks/useAuth"
-import { TailSpin } from "react-loader-spinner"
-import { useNavigate } from "react-router"
+import { useState } from "react";
+import Input from "../input/Input";
+import { useAuth } from "../../hooks/useAuth";
+import { TailSpin } from "react-loader-spinner";
+import { useNavigate } from "react-router";
+import { useToast } from "../../hooks/useToast";
 
 function SignUp() {
-  const {loading, register, error} = useAuth()
-  const navigate  = useNavigate()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [repeatPassword, setRepeatPassword] = useState("")
-  const [repeatPasswordError, setRepeatPasswordError] = useState(false)
-  const [emailError, setEmailError] = useState(false)
-  const [passwordError, setPasswordError] = useState(false)
-  const PasswordRegex = "(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}"
-  const emailPlaceholder = "enter your email address"
-  const passwordPlaceholder = "enter password"
-  const repeatPasswordPlaceholder = "repeat password"
+  const { loading, register } = useAuth();
+  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+  const [firstNameError, setFirstNameError] = useState(false);
+  const [lastNameError, setLastNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [repeatPasswordError, setRepeatPasswordError] = useState(false);
+  const PasswordRegex = "(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}";
+  const firstNamePlaceholder = "enter your name";
+  const lastNamePlaceholder = "Enter your last name";
+  const emailPlaceholder = "enter your email address";
+  const passwordPlaceholder = "enter password";
+  const repeatPasswordPlaceholder = "repeat password";
+  const firstNameErrorText = "Enter your username"
+  const lastNameErrorText = "please enter your last name"
+  const emailErrorText = "please enter your email address"
+  const passwordErrorText = "The password must be at least 8 characters long and contain the letters A-Z a-z 1-9."
+  const repeatPasswordErrorText = "Please enter the correct password."
+  // console.log(user);
 
- 
-  async function handleSubmit (e) {
-    e.preventDefault()
-    if(!email.trim() || !password.trim()) {
-      setEmailError(true)
-      setPasswordError(true)
-      setRepeatPasswordError(true)
-      console.log("xato")
-      return
+  const toast = useToast();
+
+  const handleError = (err) => {
+    toast.error(err);
+  };
+
+  const handleSuccess = () => {
+    toast.success("Saved successfully!");
+  };
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if(loading) return
+    if (
+      !firstName?.trim() ||
+      !lastName?.trim() ||
+      !email?.trim() ||
+      !password?.trim()
+    ) {
+      setFirstNameError(true);
+      setLastNameError(true);
+      setEmailError(true);
+      setPasswordError(true);
+      setRepeatPasswordError(true);
+      return;
     }
-    if(password !== repeatPassword) {
-      setRepeatPasswordError(true)
-      return
+    if (password !== repeatPassword) {
+      setRepeatPasswordError(true);
+      return;
     }
-    await register(email, password)
-    if(!error) navigate("/")
+    const result = await register(email, password, firstName, lastName);
+
+    if (!result.success) {
+      handleError(result.error);
+      return;
+    }
+
+    navigate("/");
+    handleSuccess();
   }
 
-  function handleEmailChange (e){
-    setEmail(e.target.value)
-    if(emailError && !e.target.validity.typeMismatch) setEmailError(false)
+  function handleFirstNameChange(e) {
+    setFirstName(e.target.value);
+    if (firstNameError && !e.target.value) setFirstNameError(false);
   }
 
-  function handlePasswordChange (e){
-    setPassword(e.target.value)
-    if(passwordError && !e.target.validity.patternMismatch) setPasswordError(false)
+  function handleLastNameChange(e) {
+    setLastName(e.target.value);
+    if (lastNameError && !e.target.validity.value) setLastNameError(false);
   }
 
-  function handleRepeatPasswordChange (e) {
-    setRepeatPassword(e.target.value)
-    if(repeatPasswordError && password === e.target.value) setRepeatPasswordError(false)
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+    if (emailError && !e.target.validity.typeMismatch) setEmailError(false);
   }
-  
+
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
+    if (passwordError && !e.target.validity.patternMismatch)
+      setPasswordError(false);
+  }
+
+  function handleRepeatPasswordChange(e) {
+    setRepeatPassword(e.target.value);
+    if (repeatPasswordError && password === e.target.value)
+      setRepeatPasswordError(false);
+  }
+
   return (
     <div className="w-full">
-      <form  onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-y-2">
-        <Input 
+      <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-y-2">
+        <Input
+          error={firstNameError}
+          setError={setFirstNameError}
+          label={"firstName"}
+          type={"text"}
+          id={"firstName"}
+          value={firstName}
+          onChange={handleFirstNameChange}
+          placeholder={firstNamePlaceholder}
+          errorText={firstNameErrorText}
+        />
+        <Input
+          error={lastNameError}
+          setError={setLastNameError}
+          label={"lastName"}
+          type={"text"}
+          id={"lastName"}
+          value={lastName}
+          onChange={handleLastNameChange}
+          placeholder={lastNamePlaceholder}
+          errorText={lastNameErrorText}
+        />
+        <Input
           error={emailError}
           setError={setEmailError}
           label={"email"}
@@ -63,8 +133,9 @@ function SignUp() {
           value={email}
           onChange={handleEmailChange}
           placeholder={emailPlaceholder}
+          errorText={emailErrorText}
         />
-        <Input 
+        <Input
           error={passwordError}
           setError={setPasswordError}
           label={"password"}
@@ -74,8 +145,9 @@ function SignUp() {
           value={password}
           onChange={handlePasswordChange}
           placeholder={passwordPlaceholder}
+          errorText={passwordErrorText}
         />
-        <Input 
+        <Input
           error={repeatPasswordError}
           setError={setRepeatPasswordError}
           label={"password"}
@@ -85,18 +157,23 @@ function SignUp() {
           value={repeatPassword}
           onChange={handleRepeatPasswordChange}
           placeholder={repeatPasswordPlaceholder}
+          errorText={repeatPasswordErrorText}
         />
-        <button 
+        <button
           type="submit"
           className="w-full  text-center text-white font-bold py-2 mt-3 bg-red-600 hover:bg-red-500 rounded-xl cursor-pointer"
-          >
+        >
           <span className="flex items-center justify-center">
-            {loading ? <TailSpin width={30} height={30} color="#fff" /> : "create account"}
+            {loading ? (
+              <TailSpin width={30} height={30} color="#fff" />
+            ) : (
+              "create account"
+            )}
           </span>
-          </button>
+        </button>
       </form>
     </div>
-  )
+  );
 }
 
-export default SignUp
+export default SignUp;

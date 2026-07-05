@@ -6,14 +6,18 @@ import Description from "../../components/description/Description";
 import AddGenres from "../../components/add-genres/AddGenres";
 import Seasons from "../../components/seasons/Seasons";
 import YoutubeTrailer from "../../components/trailer/YoutubeTrailer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { VscChromeClose } from "react-icons/vsc";
 
 function TvPage() {
   const { details, videos } = TV;
-  const { id } = useParams();
+  const { id, play } = useParams();
   const { loader, data } = useGetData({ url: details(id) });
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(play === "true" ?  true : false);
+
+  useEffect(() => {
+      setOpen(play === "true" ?  true : false)
+  }, [id])
 
   if (loader) return null;
   const youtubeTrailerData = videos(data?.id);

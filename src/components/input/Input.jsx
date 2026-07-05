@@ -1,5 +1,5 @@
 function Input(props) {
-  const {label, error, setError, onChange, ...input} = props
+  const {label, error, setError, onChange, errorText, ...input} = props
 
   function handleInvalid(e) {
     e.preventDefault()
@@ -18,7 +18,7 @@ function Input(props) {
           onChange={(e) => onChange(e)}
           className="w-full text-white text-xl outline-none border border-slate-700 focus:border-red-600 ring ring-slate-700 focus:ring-red-600 rounded-lg p-3"
         />
-        {error && <p className="text-red-500 mt-1 text-sm">parol kamida 8 ta belgidan kam bolmasligi kerak</p>}
+        {error && <p className="text-red-500 mt-1 text-sm">{errorText}</p>}
     </div>
   )
 }

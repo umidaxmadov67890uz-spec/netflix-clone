@@ -1,8 +1,8 @@
-import { createBrowserRouter} from "react-router"
-import HomePage from "../pages/home/HomePage"
-import RootLayout from "../layouts/RootLayout"
-import AuthLayout from "../layouts/AuthLayout"
-import ProtectedRoute from './../components/ProtectedRoute ';
+import { createBrowserRouter } from "react-router";
+import HomePage from "../pages/home/HomePage";
+import RootLayout from "../layouts/RootLayout";
+import AuthLayout from "../layouts/AuthLayout";
+import ProtectedRoute from "./../components/ProtectedRoute ";
 import LoginPage from "../pages/login/LoginPage";
 import FavoritesPage from "../pages/favorites/FavoritesPage";
 import MoviePage from "../pages/movie/MoviePage";
@@ -11,54 +11,69 @@ import MoviesPage from "../pages/movie/MoviesPage";
 import TvsPage from "../pages/tv/TvsPage";
 import GenrePage from "../pages/genre/GenrePage";
 import SearchPage from "../pages/search/SearchPage";
- 
+import UserAccountPage from "../pages/userAccount/UserAccountPage";
+import AdminPage from "../pages/admin/AdminPage";
+import AdminRoute from "../components/admin/AdminRoute";
 
 export const Routers = createBrowserRouter([
   {
     path: "/",
-    element: 
-      <ProtectedRoute >
-        <RootLayout/>
-      </ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <RootLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
-        element: <HomePage />
+        element: <HomePage />,
       },
       {
         path: "/favorites",
-        element: <FavoritesPage />
+        element: <FavoritesPage />,
+      },
+      {
+        path: "/account",
+        element: <UserAccountPage />,
       },
       {
         path: "/movies",
-        element: <MoviesPage />
+        element: <MoviesPage />,
       },
       {
         path: "/series",
-        element: <TvsPage />
+        element: <TvsPage />,
       },
       {
         path: "/genre/:type/:id/:genre",
-        element: <GenrePage />
+        element: <GenrePage />,
       },
       {
         path: "/movie/detail/:id/:play",
-        element: <MoviePage/>
+        element: <MoviePage />,
       },
       {
-        path: "/tv/detail/:id",
-        element: <TvPage />
-      },{
+        path: "/tv/detail/:id/:play",
+        element: <TvPage />,
+      },
+      {
         path: "/search/:query",
-        element: <SearchPage />
-      }
-    ]
-  }, {
+        element: <SearchPage />,
+      },
+    ],
+  },
+  {
     path: "/login",
-    element: <AuthLayout/>,
-    children: [
-      {index: true, element: <LoginPage/>}
-    ]
-  }
-])
-
+    element: <AuthLayout />,
+    children: [{ index: true, element: <LoginPage /> }],
+  },
+  {
+    path: "/admin",
+    element: (
+      <AdminRoute>
+        <RootLayout />
+      </AdminRoute>
+    ),
+    children: [{ index: true, element: <AdminPage /> }],
+  },
+]);

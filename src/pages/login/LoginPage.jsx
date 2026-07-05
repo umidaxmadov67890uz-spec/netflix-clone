@@ -8,9 +8,9 @@ function LoginPage() {
   return (
     <div className="h-dvh w-full relative bg-no-repeat bg-center bg-cover flex items-center justify-center" style={{backgroundImage: `url(${img})`}}>
       <div className="absolute top-0 left-0 ring-0 w-full h-full bg-black opacity-50"></div>
-      <div className="max-w-100 p-5 rounded-xl bg-black z-50">
-        <h1 className="text-white text-center text-3xl">login</h1>
-        <p className="text-slate-300 text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum nesciunt facere minus, </p>
+      <div className="max-w-100 w-full p-5 rounded-xl bg-black z-50">
+        {/* <h1 className="text-white text-center text-3xl">login</h1> */}
+        {/* <p className="text-slate-300 text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum nesciunt facere minus, </p> */}
         <div className="grid grid-cols-2">
           <button 
             onClick={() => setActiveLoginPage("sign-in")}

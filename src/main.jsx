@@ -7,17 +7,20 @@ import MoviesDataProvider from "./context/MoviesDataProvider";
 import TvDataProvider from "./context/TvDataProvider";
 import UserFavoritesProvider from "./context/UserFavoritesProvider";
 import GenresDataProvider from "./context/GenresDataProvider";
+import { ToastProvider } from "./context/ToastProvider";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <UserFavoritesProvider>
-      <MoviesDataProvider>
-        <TvDataProvider>
-          <GenresDataProvider>
-            <RouterProvider router={Routers} />
-          </GenresDataProvider>
-        </TvDataProvider>
-      </MoviesDataProvider>
-    </UserFavoritesProvider>
+    <ToastProvider>
+      <UserFavoritesProvider>
+        <MoviesDataProvider>
+          <TvDataProvider>
+            <GenresDataProvider>
+              <RouterProvider router={Routers} />
+            </GenresDataProvider>
+          </TvDataProvider>
+        </MoviesDataProvider>
+      </UserFavoritesProvider>
+    </ToastProvider>
   </StrictMode>,
 );

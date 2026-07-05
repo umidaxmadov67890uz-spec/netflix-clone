@@ -3,9 +3,11 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
-import { auth } from "../firebase/FirebaseConfig";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { auth, db } from "../firebase/FirebaseConfig";
 
 export function useAuth() {
   const [user, setUser] = useState(null);
@@ -13,28 +15,89 @@ export function useAuth() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        const profile = await getUserProfile(currentUser.uid);
+        setUser({ ...currentUser, ...profile });
+      } else {
+        setUser(null);
+      }
       setLoading(false);
     });
     return unsubscribe;
   }, []);
 
-  const login = async (email, password) => {
-    setError(null);
+  async function login(email, password) {
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      setError(null);
+      return { success: true };
+    } catch (err) {
+      setError(err.message);
+      return { success: false, error: getErrorMessage(err.code)};
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // firstName va lastName endi shu yerda qabul qilinadi
+  const register = async (email, password, firstName, lastName) => {
+    // setError(null);
+    setLoading(true)
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      const newUser = userCredential.user;
+
+      // Auth profiliga ism-familiyani ham yozib qo'yamiz (ixtiyoriy, lekin foydali)
+      await updateProfile(newUser, { displayName: `${firstName} ${lastName}` });
+
+      // Firestore'da asosiy profil
+      await setDoc(doc(db, "users", newUser.uid), {
+        firstName,
+        lastName,
+        email,
+        role: "user",
+        subscription: "free",
+        createdAt: new Date().toISOString(),
+      });
+      setError(null);
+      return { success: true };
     } catch (err) {
       setError(getErrorMessage(err.code));
+      return { success: false, error: getErrorMessage(err.code)};
+    } finally{
+      setLoading(false)
     }
   };
 
-  const register = async (email, password) => {
+  const updateUserProfile = async (updates) => {
     setError(null);
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const currentUser = auth.currentUser;
+      if (!currentUser) throw new Error("Login qilinmagan");
+
+      // Firestore'dagi documentni yangilash (firstName, lastName)
+      await updateDoc(doc(db, "users", currentUser.uid), updates);
+
+      // Agar ism-familiya o'zgargan bo'lsa, Auth profilini ham yangilaymiz
+      if (updates.firstName || updates.lastName) {
+        const newFirstName = updates.firstName ?? user.firstName;
+        const newLastName = updates.lastName ?? user.lastName;
+        await updateProfile(currentUser, {
+          displayName: `${newFirstName} ${newLastName}`,
+        });
+      }
+
+      // Local state'ni ham yangilab qo'yamiz, sahifa reload bo'lmasin
+      setUser((prev) => ({ ...prev, ...updates }));
     } catch (err) {
-      setError(getErrorMessage(err.code));
+      console.error(err);
+      setError("Profilni yangilashda xatolik yuz berdi");
     }
   };
 
@@ -42,16 +105,22 @@ export function useAuth() {
     await signOut(auth);
   };
 
-  return { user, loading, error, login, register, logout };
+  return { user, loading, error, login, register, logout, updateUserProfile };
 }
 
+async function getUserProfile(uid) {
+  const docRef = doc(db, "users", uid);
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists() ? docSnap.data() : {};
+}
+// auth/invalid-credential
 function getErrorMessage(code) {
   const messages = {
-    "auth/user-not-found": "Foydalanuvchi topilmadi",
-    "auth/wrong-password": "Noto'g'ri parol",
-    "auth/email-already-in-use": "Bu email allaqachon ishlatilgan",
-    "auth/invalid-email": "Email noto'g'ri formatda",
-    "auth/weak-password": "Parol kamida 6 belgidan iborat bo'lishi kerak",
+    "auth/user-not-found": "User not found",
+    "auth/wrong-password": "Incorrect password",
+    "auth/email-already-in-use": "This email is already in use.",
+    "auth/invalid-email": "Email is in invalid format.",
+    "auth/weak-password": "Password must be at least 6 characters long",
   };
-  return messages[code] || "Xatolik yuz berdi";
+  return messages[code] || "An error occurred.";
 }
