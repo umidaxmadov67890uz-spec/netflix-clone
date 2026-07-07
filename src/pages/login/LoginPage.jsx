@@ -2,9 +2,16 @@ import { useState } from "react"
 import img from "../../assets/images/login-bg1.jpg"
 import SignIn from "../../components/sign-in/SignIn"
 import SignUp from "../../components/sign-up/SignUp"
+import { useAuth } from "../../hooks/useAuth"
+import { useNavigate } from "react-router"
 
 function LoginPage() {
   const [activeLoginPage, setActiveLoginPage] = useState("sign-in")
+  const {loading, user} = useAuth()
+  const navigate = useNavigate()
+  
+  if(loading) return null
+  if(user) return navigate("/")
   return (
     <div className="h-dvh w-full relative bg-no-repeat bg-center bg-cover flex items-center justify-center" style={{backgroundImage: `url(${img})`}}>
       <div className="absolute top-0 left-0 ring-0 w-full h-full bg-black opacity-50"></div>

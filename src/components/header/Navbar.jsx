@@ -7,6 +7,7 @@ function Navbar() {
       <Link to={"/movies"} ><span className="text-white hover:text-red-500 transition-all duration-200 capitalize">movies</span></Link>
       <Link to={"/series"} ><span className="text-white hover:text-red-500 transition-all duration-200 capitalize">series</span></Link>
       <Link to={"/favorites"} ><span className="text-white hover:text-red-500 transition-all duration-200 capitalize">favorites</span></Link>
+      <Link to={"/subscriptions"} ><span className="text-white hover:text-red-500 transition-all duration-200 capitalize">Tariffs</span></Link>
     </div>
   )
 }

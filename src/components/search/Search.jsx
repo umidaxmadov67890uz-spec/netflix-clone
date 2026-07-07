@@ -22,7 +22,7 @@ function Search(props) {
         autoFocus
         onChange={(e) => setValue(e?.target?.value)}
         placeholder="movie search"
-        className="text-white pl-2 py-1 border border-slate-700 focus:border-slate-500 bg-gray-900 outline-none rounded-md w-full h-8"
+        className="text-white pl-2 py-1 border border-[#202020] focus:border-[#a0a0a0] bg-gray-900 outline-none rounded-md w-full h-10"
       />
       <button
         type="button"

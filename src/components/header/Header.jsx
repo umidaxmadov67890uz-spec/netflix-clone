@@ -10,7 +10,7 @@ function Header() {
   
 
   return (
-    <header className="w-full h-12 bg-[black]/70 fixed z-40">
+    <header className="w-full h-14 bg-[black]/70 fixed z-40">
       <div className="container mx-auto px-2 xl:px-15 h-full flex items-center justify-between">
         <div className="h-full flex items-center gap-x-5">
           <div className="min-w-30">

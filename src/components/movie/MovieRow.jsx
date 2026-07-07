@@ -15,7 +15,7 @@ function MovieRow(props) {
         <div className="container mx-auto px-2 xl:px-15">
           <div className="flex items-center justify-between">
             <h2 className="text-white text-2xl font-bold capitalize">{listTitle}</h2>
-            <Link to={link} ><GrNext className="text-white text-2xl" /></Link>
+            <Link to={link} ><GrNext className="text-white text-2xl hover:scale-110 transition-all duration-200" /></Link>
           </div>
           <div className="flex items-start gap-x-6 flex-nowrap h-64 pt-4 overflow-x-scroll scrollbar-none">
             {finalData?.map(movie => (

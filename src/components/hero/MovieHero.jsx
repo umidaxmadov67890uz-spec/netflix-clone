@@ -14,7 +14,7 @@ function MovieHero(props) {
         <div className="flex flex-col justify-end gap-y-5 pb-10 container xl:px-15 mx-auto h-9/10">
           <h1 className="text-white text-5xl">{title}</h1>
           <div className="flex items-center gap-x-4">
-            <button onClick={() => play(true)} className="bg-white py-2 px-4 rounded-sm flex items-center gap-x-1 font-bold text-2xl cursor-pointer hover:scale-105 transition-all duration-300">
+            <button onClick={play} className="bg-white py-2 px-4 rounded-sm flex items-center gap-x-1 font-bold text-2xl cursor-pointer hover:scale-105 transition-all duration-300">
               <IoMdPlay />
               watch
             </button>

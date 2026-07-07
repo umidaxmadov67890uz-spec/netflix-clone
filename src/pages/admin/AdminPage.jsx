@@ -36,6 +36,7 @@ function AdminPage() {
 
   if (loading) return <p>Yuklanmoqda...</p>;
   console.log(error && error);
+  // console.log(use)
   return (
     <div className="container mx-auto px-2 xl:px-15 relative">
       {editMadalOpen && (

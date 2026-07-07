@@ -18,7 +18,7 @@ function Episodes(props) {
 
   function handlePlay(e){
     e.stopPropagation();
-    play(true)
+    play()
   } 
 
   // console.log(data);

@@ -54,7 +54,7 @@ function MoviesPage() {
       <div className="container mx-auto flex items-center justify-center">
         <button 
           onClick={handleMore}
-          className="py-2 w-full bg-slate-800 text-white text-nowrap flex items-center justify-center gap-x-2 mb-20 cursor-pointer" 
+          className="py-2 w-full bg-[#202020] text-white text-nowrap flex items-center justify-center gap-x-2 mb-20 cursor-pointer" 
         >
           Show more <FaChevronRight className="rotate-90" />
         </button>

@@ -18,8 +18,8 @@ function Filter(props) {
     setCountry("")
   }
   return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between gap-y-1 bg-slate-900 py-2 px-1 sm:px-2 rounded-lg border border-slate-800">
-      <div className="flex flex-col sm:flex-row sm:items-center gap-y-1 w-full sm:w-auto">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between gap-y-1 bg-[#181818] py-2 px-1 sm:px-2 rounded-lg border border-[#252525] ">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-x-2 gap-y-1 w-full sm:w-auto">
         <FilterItem data={genresData} active={genres} setFunction={setGenres} type={type} />
         <FilterItem data={yearData} active={year} setFunction={setYear} type={type} />
         <FilterItem data={countryData} active={country} setFunction={setCountry} type={type} />

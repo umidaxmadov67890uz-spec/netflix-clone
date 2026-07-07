@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { HERO_IMG_URL, TV } from "../../services/tmdb";
 import useGetData from "../../hooks/useGetData";
 import MovieHero from "../../components/hero/MovieHero";
@@ -8,21 +8,44 @@ import Seasons from "../../components/seasons/Seasons";
 import YoutubeTrailer from "../../components/trailer/YoutubeTrailer";
 import { useEffect, useState } from "react";
 import { VscChromeClose } from "react-icons/vsc";
+import { useAuth } from "../../hooks/useAuth";
 
 function TvPage() {
+  const { user } = useAuth();
   const { details, videos } = TV;
   const { id, play } = useParams();
+  const navigate = useNavigate();
   const { loader, data } = useGetData({ url: details(id) });
-  const [open, setOpen] = useState(play === "true" ?  true : false);
+  const [open, setOpen] = useState(null);
 
   useEffect(() => {
-      setOpen(play === "true" ?  true : false)
-  }, [id])
+    if (
+      user?.subscription === "lite" ||
+      user?.subscription === "pro" ||
+      user?.subscription === "Premium"
+    ) {
+      setOpen(play === "true" ? true : false);
+    } else {
+      if (play === "true") {
+        navigate("/subscriptions");
+      }
+    }
+  }, [id]);
 
   if (loader) return null;
   const youtubeTrailerData = videos(data?.id);
 
-  // console.log(data)
+  function handlePlay() {
+    if (
+      user?.subscription === "lite" ||
+      user?.subscription === "pro" ||
+      user?.subscription === "Premium"
+    ) {
+      setOpen(true);
+    } else {
+      return navigate("/subscriptions");
+    }
+  }
 
   return (
     <div>
@@ -52,11 +75,15 @@ function TvPage() {
         </div>
       </div>
       <div className={`${open ? "hidden" : ""}`}>
-        <MovieHero bgImg={data?.backdrop_path} title={data?.original_name} play={setOpen} />
+        <MovieHero
+          bgImg={data?.backdrop_path}
+          title={data?.original_name}
+          play={handlePlay}
+        />
         <div className="container mx-auto xl:px-15">
           <div>
             <Description
-              play={setOpen}
+              play={handlePlay}
               img={data?.poster_path}
               title={data?.name}
               genres={data?.genres}
@@ -71,10 +98,13 @@ function TvPage() {
               seasons={data?.seasons}
               seasonNumber={data?.last_episode_to_air?.season_number}
               id={data?.id}
-              play={setOpen}
+              play={handlePlay}
             />
             <div className="my-5 mx-auto w-80 h-50 sm:w-150 sm:h-100 md:w-180 md:h-115 lg:w-245 lg:h-170 xl:w-290 xl:h-190">
-              <YoutubeTrailer youtubeTrailerData={youtubeTrailerData} play={false} />
+              <YoutubeTrailer
+                youtubeTrailerData={youtubeTrailerData}
+                play={false}
+              />
             </div>
           </div>
         </div>

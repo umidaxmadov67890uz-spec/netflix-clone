@@ -14,6 +14,7 @@ import SearchPage from "../pages/search/SearchPage";
 import UserAccountPage from "../pages/userAccount/UserAccountPage";
 import AdminPage from "../pages/admin/AdminPage";
 import AdminRoute from "../components/admin/AdminRoute";
+import SubscriptionsPage from "../pages/subscription/SubscriptionsPage";
 
 export const Routers = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const Routers = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: "/subscriptions",
+        element: <SubscriptionsPage />
       },
       {
         path: "/favorites",

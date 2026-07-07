@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { HERO_IMG_URL, MOVIES } from "./../../services/tmdb";
 import useGetData from "../../hooks/useGetData";
 import MovieHero from "../../components/hero/MovieHero";
@@ -9,24 +9,47 @@ import { FaRegStar } from "react-icons/fa";
 import ActersList from "./../../components/acters/ActersList";
 import { useEffect, useState } from "react";
 import { VscChromeClose } from "react-icons/vsc";
+import { useAuth } from "./../../hooks/useAuth";
 
 function MoviePage() {
+  const { user } = useAuth();
   const { actors, details, videos } = MOVIES;
   const { id, play } = useParams();
+  const navigate = useNavigate();
   const { loader, data } = useGetData({ url: details(id) });
-  const [open, setOpen] = useState(play === "true" ?  true : false);
+  const [open, setOpen] = useState(null);
   // const [play, setPlay] = useState(false)
 
   const actersData = actors(data?.id);
 
   useEffect(() => {
-    setOpen(play === "true" ?  true : false)
-  }, [id])
+    if (
+      user?.subscription === "lite" ||
+      user?.subscription === "pro" ||
+      user?.subscription === "Premium"
+    ) {
+      setOpen(play === "true" ? true : false);
+    } else {
+      if (play === "true") {
+        navigate("/subscriptions");
+      }
+    }
+  }, [id]);
 
-  if (loader) return null
+  if (loader) return null;
   const youtubeTrailerData = videos(data?.id);
-  // console.log(open)
-  // <Movie movieData={data} />
+
+  function handlePlay() {
+    if (
+      user?.subscription === "lite" ||
+      user?.subscription === "pro" ||
+      user?.subscription === "Premium"
+    ) {
+      setOpen(true);
+    } else {
+      return navigate("/subscriptions");
+    }
+  }
 
   return (
     <div>
@@ -56,11 +79,15 @@ function MoviePage() {
         </div>
       </div>
       <div className={`${open ? "hidden" : ""}`}>
-        <MovieHero bgImg={data?.backdrop_path} title={data?.original_title} play={setOpen} />
+        <MovieHero
+          bgImg={data?.backdrop_path}
+          title={data?.original_title}
+          play={handlePlay}
+        />
         <div className="container mx-auto px-2 xl:px-15">
           <div>
             <Description
-              play={setOpen}
+              play={handlePlay}
               img={data?.poster_path}
               title={data?.title}
               genres={data?.genres}

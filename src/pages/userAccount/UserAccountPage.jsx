@@ -108,7 +108,7 @@ function UserAccountPage() {
       )}
       
       <div className="w-full h-[70vh] flex items-center justify-center">
-        <div className="max-w-200 w-full py-2 px-5 rounded-2xl bg-slate-900 border border-slate-700">
+        <div className="max-w-200 w-full py-2 px-5 rounded-2xl bg-slate-900 border border-slate-800">
           <h1 className="text-white font-bold text-2xl">Profile</h1>
           <div className="flex items-end justify-between gap-x-5 w-full">
             <Input
