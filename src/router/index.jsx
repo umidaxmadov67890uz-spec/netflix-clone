@@ -15,6 +15,7 @@ import UserAccountPage from "../pages/userAccount/UserAccountPage";
 import AdminPage from "../pages/admin/AdminPage";
 import AdminRoute from "../components/admin/AdminRoute";
 import SubscriptionsPage from "../pages/subscription/SubscriptionsPage";
+import SuccessPage from "../pages/success/SuccessPage";
 
 export const Routers = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ export const Routers = createBrowserRouter([
         path: "/search/:query",
         element: <SearchPage />,
       },
+      {
+        path: "/payment-success",
+        element: <SuccessPage />
+      }
     ],
   },
   {
