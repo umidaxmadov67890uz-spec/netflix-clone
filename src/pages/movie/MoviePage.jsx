@@ -22,6 +22,7 @@ function MoviePage() {
   const actersData = actors(data?.id);
 
   useEffect(() => {
+    if(!user) return
     if (user?.subscriptionStatus === "active") {
       setOpen(play === "true" ? true : false);
     } else {
@@ -29,7 +30,7 @@ function MoviePage() {
         navigate("/subscriptions");
       }
     }
-  }, [id]);
+  }, [id, user]);
 
   if (loader) return null;
   const youtubeTrailerData = videos(data?.id);

@@ -19,6 +19,7 @@ function TvPage() {
   const [open, setOpen] = useState(null);
 
   useEffect(() => {
+    if(!user) return
     if (user?.subscriptionStatus === "active") {
       setOpen(play === "true" ? true : false);
     } else {
@@ -26,7 +27,7 @@ function TvPage() {
         navigate("/subscriptions");
       }
     }
-  }, [id]);
+  }, [id, user]);
 
   if (loader) return null;
   const youtubeTrailerData = videos(data?.id);
