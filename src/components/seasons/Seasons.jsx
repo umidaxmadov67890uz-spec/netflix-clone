@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import Season from "./Season";
 import { TV } from "../../services/tmdb";
 import Episodes from "../episodes/Episodes";
 

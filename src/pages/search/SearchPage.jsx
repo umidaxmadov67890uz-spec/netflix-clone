@@ -6,7 +6,6 @@ import { useState } from "react";
 
 function SearchPage() {
   const { query } = useParams();
-  //   const [pageNumber, setPageNumber] = useState(1);
   const [type, setType] = useState("movie");
   const { data, loader } = useGetData({
     url: SEARCH(type, query),

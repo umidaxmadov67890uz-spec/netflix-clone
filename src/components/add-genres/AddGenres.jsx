@@ -3,7 +3,6 @@ import MovieRow from "../movie/MovieRow";
 
 function AddGenres(props) {
   const {genres, id, type} = props
-  // console.log(genres)
   return (
     <div>
       {genres?.map((genre) => (

@@ -100,11 +100,3 @@ function ToastItem({ toast, onClose }) {
     </div>
   );
 }
-
-// export function useToast() {
-//   const ctx = useContext(ToastContext);
-//   if (!ctx) {
-//     throw new Error("useToast faqat ToastProvider ichida ishlatilishi kerak");
-//   }
-//   return ctx;
-// }

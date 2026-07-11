@@ -88,7 +88,7 @@ function SubscriptionsPage() {
     <div className="container mx-auto px-2 xl:px-15 pt-20">
       <div className="relative">
         {open && (
-          <div className="z-50 absolute top-0 right-0 left-0 mx-auto pt-2 px-4 pb-4 max-w-96 w-full rounded-2xl bg-[#252525] border border-slate-700">
+          <div className="z-50 fixed top-0 right-0 left-0 bottom-0 m-auto pt-2 px-4 pb-4 max-w-96 w-full h-max rounded-2xl bg-[#252525] border border-slate-700">
             <h2 className="text-4xl text-white font-bold capitalize text-center">
               {subscriptionData?.[activeSubscription]?.title}
             </h2>
@@ -163,7 +163,7 @@ function SubscriptionsPage() {
             </div>
             <span className="h-px w-9/10 mx-auto bg-[#5f5f5f] my-5 block"></span>
             <button onClick={() => handleSubscribe(activeSubscriptionData)} className="w-full py-1 my-3 text-center bg-white font-bold capitalize text-2xl rounded-2xl hover:scale-101 cursor-pointer transition-all duration-300">
-              continue
+              bosilmasin
             </button>
             <button
               onClick={handleClose}
@@ -180,7 +180,7 @@ function SubscriptionsPage() {
           </Link>{" "}
           / <span className="text-slate-400">Tariffs</span>{" "}
         </p>
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 mb-20">
           <SubscriptionItem
             title={"lite"}
             movieAndTV={"25 000"}

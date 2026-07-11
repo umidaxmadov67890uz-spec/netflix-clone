@@ -1,4 +1,11 @@
-import { collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../firebase/FirebaseConfig";
 
 export function useAdmin() {
@@ -11,13 +18,31 @@ export function useAdmin() {
     await updateDoc(doc(db, "users", uid), { role });
   };
 
-  const updateUserSubscription = async (uid, subscription) => {
-    await updateDoc(doc(db, "users", uid), { subscription });
+  const updateUserSubscription = async (
+    uid,
+    subscriptionTier,
+    durationInMonths,
+  ) => {
+    const update = {
+      subscriptionTier,
+      subscriptionStatus: subscriptionTier === "free" ? "inactive" : "active",
+    };
+
+    if (subscriptionTier === "free") {
+      update.subscriptionExpiresAt = null;
+      update.subscriptionStartedAt = null;
+      update.subscriptionPlanId = null;
+    } else if (durationInMonths) {
+      const expiry = new Date();
+      expiry.setMonth(expiry.getMonth() + durationInMonths);
+      update.subscriptionExpiresAt = Timestamp.fromDate(expiry);
+      update.subscriptionStartedAt = Timestamp.fromDate(new Date());
+    }
+
+    await updateDoc(doc(db, "users", uid), update);
   };
 
   const deleteUser = async (uid) => {
-    // Faqat Firestore documentini o'chiradi, Auth'dan o'chirish uchun
-    // Firebase Admin SDK (backend) kerak bo'ladi — client-side'dan bo'lmaydi
     await deleteDoc(doc(db, "users", uid));
   };
 

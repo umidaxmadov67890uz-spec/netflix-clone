@@ -36,7 +36,6 @@ function AdminPage() {
 
   if (loading) return <p>Yuklanmoqda...</p>;
   console.log(error && error);
-  // console.log(use)
   return (
     <div className="container mx-auto px-2 xl:px-15 relative">
       {editMadalOpen && (
@@ -44,7 +43,7 @@ function AdminPage() {
       )}
       <div className="pt-20 w-full">
         <h1 className="text-white font-bold text-4xl">Admin Panele</h1>
-        <div className="w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-4">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-4 mb-28">
           {users?.map((user) => (
             <div
               key={user?.id}
@@ -63,7 +62,7 @@ function AdminPage() {
                 role: {user?.role}
               </p>
               <p className="text-slate-400 text-lg line-clamp-1">
-                subscription: {user?.subscription}
+                subscription: {user?.subscriptionTier}
               </p>
               <button onClick={() => handleOpen(user?.id)} className="w-full py-1 border border-slate-700 hover:border-slate-600 rounded-l-full rounded-r-full text-center text-xl text-slate-200 hover:text-slate-100 cursor-pointer transition-all duration-200">
                 Edit

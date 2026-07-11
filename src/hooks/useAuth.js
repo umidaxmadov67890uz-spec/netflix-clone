@@ -35,16 +35,14 @@ export function useAuth() {
       return { success: true };
     } catch (err) {
       setError(err.message);
-      return { success: false, error: getErrorMessage(err.code)};
+      return { success: false, error: getErrorMessage(err.code) };
     } finally {
       setLoading(false);
     }
   }
 
-  // firstName va lastName endi shu yerda qabul qilinadi
   const register = async (email, password, firstName, lastName) => {
-    // setError(null);
-    setLoading(true)
+    setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -53,25 +51,27 @@ export function useAuth() {
       );
       const newUser = userCredential.user;
 
-      // Auth profiliga ism-familiyani ham yozib qo'yamiz (ixtiyoriy, lekin foydali)
       await updateProfile(newUser, { displayName: `${firstName} ${lastName}` });
 
-      // Firestore'da asosiy profil
       await setDoc(doc(db, "users", newUser.uid), {
         firstName,
         lastName,
         email,
         role: "user",
-        subscription: "free",
+        subscriptionTier: "free", 
+        subscriptionStatus: "inactive", 
+        subscriptionPlanId: null,
+        subscriptionStartedAt: null,
+        subscriptionExpiresAt: null,
         createdAt: new Date().toISOString(),
       });
       setError(null);
       return { success: true };
     } catch (err) {
       setError(getErrorMessage(err.code));
-      return { success: false, error: getErrorMessage(err.code)};
-    } finally{
-      setLoading(false)
+      return { success: false, error: getErrorMessage(err.code) };
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -81,10 +81,8 @@ export function useAuth() {
       const currentUser = auth.currentUser;
       if (!currentUser) throw new Error("Login qilinmagan");
 
-      // Firestore'dagi documentni yangilash (firstName, lastName)
       await updateDoc(doc(db, "users", currentUser.uid), updates);
 
-      // Agar ism-familiya o'zgargan bo'lsa, Auth profilini ham yangilaymiz
       if (updates.firstName || updates.lastName) {
         const newFirstName = updates.firstName ?? user.firstName;
         const newLastName = updates.lastName ?? user.lastName;
@@ -93,7 +91,6 @@ export function useAuth() {
         });
       }
 
-      // Local state'ni ham yangilab qo'yamiz, sahifa reload bo'lmasin
       setUser((prev) => ({ ...prev, ...updates }));
     } catch (err) {
       console.error(err);
@@ -113,7 +110,6 @@ async function getUserProfile(uid) {
   const docSnap = await getDoc(docRef);
   return docSnap.exists() ? docSnap.data() : {};
 }
-// auth/invalid-credential
 function getErrorMessage(code) {
   const messages = {
     "auth/user-not-found": "User not found",

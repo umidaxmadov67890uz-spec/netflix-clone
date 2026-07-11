@@ -19,11 +19,7 @@ function TvPage() {
   const [open, setOpen] = useState(null);
 
   useEffect(() => {
-    if (
-      user?.subscription === "lite" ||
-      user?.subscription === "pro" ||
-      user?.subscription === "Premium"
-    ) {
+    if (user?.subscriptionStatus === "active") {
       setOpen(play === "true" ? true : false);
     } else {
       if (play === "true") {
@@ -36,11 +32,7 @@ function TvPage() {
   const youtubeTrailerData = videos(data?.id);
 
   function handlePlay() {
-    if (
-      user?.subscription === "lite" ||
-      user?.subscription === "pro" ||
-      user?.subscription === "Premium"
-    ) {
+    if (user?.subscriptionStatus === "active") {
       setOpen(true);
     } else {
       return navigate("/subscriptions");

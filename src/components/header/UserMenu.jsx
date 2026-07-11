@@ -26,7 +26,6 @@ function UserMenu() {
 
   const isAdmin = user?.role === "admin" ? true : false
 
-  // console.log(user)
 
   return (
     <div 

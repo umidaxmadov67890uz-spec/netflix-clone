@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-// const API_KEY = "31a2443faf807b3a1b32b34ae159d609";
 
 function useGetData({ url }) {
   const [loader, setLoader] = useState(true);
@@ -9,7 +8,6 @@ function useGetData({ url }) {
 
   async function getData(url) {
     if (!url) return;
-    // console.log(url)
     setLoader(true);
     try {
       await axios.get(url).then((res) => {

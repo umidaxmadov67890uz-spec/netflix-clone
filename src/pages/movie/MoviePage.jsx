@@ -18,16 +18,11 @@ function MoviePage() {
   const navigate = useNavigate();
   const { loader, data } = useGetData({ url: details(id) });
   const [open, setOpen] = useState(null);
-  // const [play, setPlay] = useState(false)
 
   const actersData = actors(data?.id);
 
   useEffect(() => {
-    if (
-      user?.subscription === "lite" ||
-      user?.subscription === "pro" ||
-      user?.subscription === "Premium"
-    ) {
+    if (user?.subscriptionStatus === "active") {
       setOpen(play === "true" ? true : false);
     } else {
       if (play === "true") {
@@ -40,11 +35,7 @@ function MoviePage() {
   const youtubeTrailerData = videos(data?.id);
 
   function handlePlay() {
-    if (
-      user?.subscription === "lite" ||
-      user?.subscription === "pro" ||
-      user?.subscription === "Premium"
-    ) {
+    if (user?.subscriptionStatus === "active") {
       setOpen(true);
     } else {
       return navigate("/subscriptions");

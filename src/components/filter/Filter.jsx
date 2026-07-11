@@ -1,4 +1,3 @@
-// import { VscChromeClose } from "react-icons/vsc"
 import FilterItem from "./FilterItem"
 import { useContext } from "react";
 import { MoviesDataContext } from "../../context/MoviesDataContext";

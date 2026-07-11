@@ -21,7 +21,6 @@ function Episodes(props) {
     play()
   } 
 
-  // console.log(data);
   return (
     <div className="flex flex-nowrap items-end gap-x-5 py-2 mt-2 h-62 overflow-x-scroll scrollbar-none">
       {data?.episodes?.map((episode) => (

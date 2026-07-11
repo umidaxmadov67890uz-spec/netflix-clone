@@ -1,7 +1,5 @@
 import { useContext } from "react";
 import { UserFavoritesContext } from "./../../context/UserFavoritesContext";
-// import { MOVIES } from "../../services/tmdb.js";
-// import MovieRow from "../../components/movie/MovieRow.jsx";
 import Favorite from "../../components/favorite/Favorite.jsx";
 function FavoritesPage() {
   const { userFavoritesData = [] } = useContext(UserFavoritesContext);

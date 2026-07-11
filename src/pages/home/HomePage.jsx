@@ -1,4 +1,3 @@
-// import img from "../../assets/images/login-bg2.jpg"
 import HeroSlider from "../../components/hero/HeroSlider"
 import MovieRow from "../../components/movie/MovieRow"
 import { MOVIE_GENRES,  MOVIES,  TV_GENRES } from "../../services/tmdb"
@@ -10,7 +9,6 @@ function HomePage() {
   const {actionAdventure, drama, documentary} = TV_GENRES
   const {data, loader} = useGetData({url: popular})
   if(loader) return <p className="text-center pt-56">Yuklanmoqda...</p>
-  // console.log(data)
   return (
     <div className="w-full"  >
       <div><HeroSlider popular={data} /></div>

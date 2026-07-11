@@ -68,5 +68,4 @@ function HeroSlide(props) {
   );
 }
 
-// bg-[#6d6d6eb3
 export default HeroSlide;
